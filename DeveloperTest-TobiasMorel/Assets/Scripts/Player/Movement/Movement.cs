@@ -49,9 +49,8 @@ public class Movement : MonoBehaviour
 
     public void JumpPlayer()
     {
-        // Salto si está en el suelo y se presiona la tecla de salto
         if (enSuelo)
-        {
+        {            
             enSuelo = false;
             rb.AddForce(Vector2.up * fuerzaSalto, ForceMode2D.Impulse);
         }
@@ -61,8 +60,9 @@ public class Movement : MonoBehaviour
     {
         // Verificar si está en el suelo
         if (collision.gameObject.CompareTag("Ground"))
-        {
+        {            
             enSuelo = true;
+            anim.SetBool("Jump", false);
         }
     }
 
@@ -72,6 +72,7 @@ public class Movement : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             enSuelo = false;
+            anim.SetBool("Jump", true);
         }
     }
 
