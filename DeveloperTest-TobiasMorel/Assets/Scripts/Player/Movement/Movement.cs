@@ -7,7 +7,10 @@ public class Movement : MonoBehaviour
     public float velocidadMovimiento = 5f; // Velocidad de movimiento horizontal
     public float fuerzaSalto = 10f; // Fuerza del salto
 
-    private Rigidbody2D rb;
+    Rigidbody2D rb;
+    SpriteRenderer spriteRenderer;
+    Animator anim;
+
     private bool enSuelo = false;
 
     bool moviendoIzquierda;
@@ -16,6 +19,8 @@ public class Movement : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -25,14 +30,17 @@ public class Movement : MonoBehaviour
 
     private void MovementPlayer()
     {
-        // Movimiento horizontal
         float movimientoHorizontal = 0f;
         if (moviendoIzquierda)
         {
+            spriteRenderer.flipX = true;
+            anim.SetBool("Walk", true);
             movimientoHorizontal = -1f;
         }
         if (moviendoDerecha)
         {
+            spriteRenderer.flipX = false;
+            anim.SetBool("Walk", true);
             movimientoHorizontal = 1f;
         }
 
@@ -75,6 +83,7 @@ public class Movement : MonoBehaviour
     public void OnLeftButtonUp()
     {
         moviendoIzquierda = false;
+        anim.SetBool("Walk", false);
     }
 
     public void OnRightButtonDown()
@@ -85,6 +94,7 @@ public class Movement : MonoBehaviour
     public void OnRightButtonUp()
     {
         moviendoDerecha = false;
+        anim.SetBool("Walk", false);
     }
 
 
