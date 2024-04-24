@@ -12,15 +12,15 @@ public class Bombs : MonoBehaviour
         objectPool = FindAnyObjectByType<ObjectPool>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         // Verificar si el objeto que colisionó es el jugador
-        if (other.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             print("Toque Player");
 
             // Obtener el componente de salud del jugador
-            PlayerLife playerHealth = other.GetComponent<PlayerLife>();
+            PlayerLife playerHealth = collision.gameObject.GetComponent<PlayerLife>();
 
             // Verificar si el componente de salud existe en el jugador
             if (playerHealth != null)
@@ -32,7 +32,7 @@ public class Bombs : MonoBehaviour
             objectPool.ReturnObjectToPool(this.gameObject);
         }
 
-        if (other.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
             objectPool.ReturnObjectToPool(this.gameObject);
         }
